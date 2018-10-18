@@ -25,3 +25,8 @@ after_success:
 script:
 - ./gradlew build
 - sonar-scanner  
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  app: test-10-2018
