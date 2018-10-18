@@ -2,12 +2,22 @@ sudo: required
 language: java
 jdk: oraclejdk8
 
+services:
+  - docker
 
 addons:
   sonarcloud:
     organization: cuong-luu-sharecare-github # the key of the org you chose at step #3
     token:
       secure: $SONAR_TOKEN
+
+after_success:
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+- export IMAGE_NAME=ltcuong211/test
+- docker build -t $IMAGE_NAME:$COMMIT .
+- docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
+- docker push $IMAGE_NAME
 
 script:
 - ./gradlew build

@@ -8,6 +8,7 @@ public class HelloController {
     
     @RequestMapping("/")
     public String index() {
+        String nonused = "ABC";
         return "Greetings from Spring Boot!";
     }
     
