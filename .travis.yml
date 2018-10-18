@@ -5,6 +5,9 @@ jdk: oraclejdk8
 services:
   - docker
 
+env:
+  global:
+  - COMMIT=${TRAVIS_COMMIT::7}
 addons:
   sonarcloud:
     organization: cuong-luu-sharecare-github # the key of the org you chose at step #3
